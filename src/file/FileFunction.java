@@ -8,7 +8,7 @@ import file.Output;
 
 public class FileFunction {
 	private String fileName;
-	
+
 	public BufferedReader readFile() {
 		String path = System.getProperty("user.dir");
 		System.out.println("Please input the file name");
@@ -41,20 +41,23 @@ public class FileFunction {
 		}
 		return buffer;
 	}
-	
-	public String writeFile (Connect connection, Arguments variables) throws IOException {
+
+	public String writeFile(Connect connection, Arguments variables) throws IOException {
 		FileWriter writer = null;
-		
+
 		String fileName = "Result.java";
 		String packageName = "file";
-		
+
 		ArrayList<String> importList = new ArrayList<>();
 		importList.add("java.util.*");
 		importList.add("java.sql.*");
 		Output outputFile = new Output(fileName, packageName, importList);
 		outputFile.structure = connection.getStructure();
+		outputFile.variables = variables;
+
 		try {
 			writer = new FileWriter("src//file" + fileName);
+			writer.write(outputFile.write(connection));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -64,22 +67,22 @@ public class FileFunction {
 		}
 		return fileName;
 	}
-	
+
 	public Arguments load() throws IOException {
 		BufferedReader buffer = readFile();
-		
+
 		String clause = buffer.readLine();
 		String read = buffer.readLine();
 		String[] proAttributes = read.split(",");
 		List<String> argumentS = new ArrayList<>();
-		for (int i = 0 ; i < proAttributes.length; i++) {
+		for (int i = 0; i < proAttributes.length; i++) {
 			String att = proAttributes[i].trim();
 			argumentS.add(att);
 		}
-		
+
 		clause = buffer.readLine();
 		String number = buffer.readLine();
-		
+
 		clause = buffer.readLine();
 		read = buffer.readLine();
 		String[] groupAttributes = read.split(",");
@@ -88,7 +91,7 @@ public class FileFunction {
 			String att = groupAttributes[i].trim();
 			argumentV.add(att);
 		}
-		
+
 		clause = buffer.readLine();
 		read = buffer.readLine();
 		String[] fVect = read.split(",");
@@ -96,11 +99,11 @@ public class FileFunction {
 		for (int i = 0; i < fVect.length; i++) {
 			argumentF.add(fVect[i].trim());
 		}
-		
+
 		clause = buffer.readLine();
 		List<List> variblesSigmas = new ArrayList<List>();
-		
-		for (int i = 0; i <  Integer.parseInt(number); i++) {
+
+		for (int i = 0; i < Integer.parseInt(number); i++) {
 			String sigma = buffer.readLine();
 			String[] sigmas = sigma.split("and");
 			ArrayList<String> varibles_sigma = new ArrayList<String>();
@@ -110,29 +113,21 @@ public class FileFunction {
 			}
 			variblesSigmas.add(varibles_sigma);
 		}
-		
+
 		clause = buffer.readLine();
 		List<String> having = new ArrayList<>();
 		read = buffer.readLine();
-		while (!read.equals("")) {
+		if (read != null) {
 			String[] have = read.split("and");
-			for (int i = 0; i < have.length; i++ ) {
+			for (int i = 0; i < have.length; i++) {
 				having.add(have[i].trim());
 			}
+			read = buffer.readLine();
 		}
-		
-		clause = buffer.readLine();
-		List<String> where = new ArrayList<>();
-		read = buffer.readLine();
-		while (!read.equals("")) {
-			String[] wh = read.split("and");
-			for (int i = 0; i < wh.length; i++ ) {
-				where.add(wh[i].trim());
-			}
-		}
-		
-		Arguments result = new Arguments(argumentS, Integer.parseInt(number), argumentV, argumentF, variblesSigmas, having, where);
+
+		Arguments result = new Arguments(argumentS, Integer.parseInt(number), argumentV, argumentF, variblesSigmas,
+				having);
 		return result;
 	}
-	
+
 }

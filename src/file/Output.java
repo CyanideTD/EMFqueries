@@ -2,6 +2,7 @@ package file;
 
 import java.util.*;
 import entities.Arguments;
+import connection.Connect;
 public class Output {
 	HashMap<String, String> structure;
 	String fileName;
@@ -22,5 +23,10 @@ public class Output {
 
 	public void printEntity() {
 		
+	}
+	
+	public String write(Connect connection) {
+		
+		return "";
 	}
 }
