@@ -101,7 +101,7 @@ public class FileFunction {
 		}
 
 		clause = buffer.readLine();
-		List<List> variblesSigmas = new ArrayList<List>();
+		List<List<String>> variblesSigmas = new ArrayList<List<String>>();
 
 		for (int i = 0; i < Integer.parseInt(number); i++) {
 			String sigma = buffer.readLine();
@@ -125,8 +125,7 @@ public class FileFunction {
 			read = buffer.readLine();
 		}
 
-		Arguments result = new Arguments(argumentS, Integer.parseInt(number), argumentV, argumentF, variblesSigmas,
-				having);
+		Arguments result = new Arguments(argumentS, Integer.parseInt(number), argumentV, argumentF, variblesSigmas, having);
 		return result;
 	}
 

@@ -9,7 +9,10 @@ public class Connect {
 	Connection conn;
 	String tableName;
 	HashMap<String, String> tableStructure = new HashMap<>();
-
+	
+	public String getTableName() {
+		return tableName;
+	}
 	public Connect() throws Exception {
 		tableStructure = new HashMap<String, String>();
 		prop = new Properties();
@@ -37,7 +40,7 @@ public class Connect {
 		tableStructure = new HashMap<String, String>();
 		try {
 			Statement stmt = conn.createStatement();
-			String sql = "select columnselect column_name,data_type" + " from information_schema.columns"
+			String sql = "select column_name,data_type" + " from information_schema.columns"
 					+ " where table_name='" + tableName + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -57,6 +60,10 @@ public class Connect {
 			System.out.println("fail");
 		}
 		return tableStructure;
+	}
+	
+	public Properties getProp() {
+		return prop;
 	}
 	
 	public HashMap<String, String> getStructure() {
