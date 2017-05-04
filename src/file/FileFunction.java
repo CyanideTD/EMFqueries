@@ -56,7 +56,7 @@ public class FileFunction {
 		outputFile.variables = variables;
 
 		try {
-			writer = new FileWriter("src//file" + fileName);
+			writer = new FileWriter("src//file//" + fileName);
 			writer.write(outputFile.write(connection));
 		} catch (Exception e) {
 			e.printStackTrace();

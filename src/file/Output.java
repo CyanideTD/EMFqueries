@@ -50,8 +50,8 @@ public class Output {
 		content.append("}\r\n");
 	}
 
-	public void printMFStruture(Connect conn) {
-		content.append("\r\n class MFStruture{\r\n");
+	public void printMFStructure(Connect conn) {
+		content.append("\r\n class MFStructure{\r\n");
 		ArrayList<String> attrubutes = new ArrayList<String>();
 
 		List<String> list = variables.getV();
@@ -116,7 +116,6 @@ public class Output {
 				content.append("\t}\r\n");
 
 			} else {
-
 				attrubutes.add(name);
 				content.append("\tprivate " + type + " " + name + ";\r\n");
 				String upperCaseString = name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -192,15 +191,15 @@ public class Output {
 	public void printFirstScan(Connect conn) {
 		StringBuilder firstScan = new StringBuilder();
 		String tableName = conn.getTableName();
-		firstScan.append("\tArrayList<MFstructure> mfs = new ArrayList<>(); \r\n");
+		firstScan.append("\tArrayList<MFStructure> mfs = new ArrayList<>(); \r\n");
 		firstScan.append("\trs = st.executeQuery(\"select * from " + tableName + "\" ); \r\n");
 		firstScan.append("\twhile (rs.next()) { \r\n");
 		firstScan.append("\t    boolean flag = false; \r\n");
 		firstScan.append("\tTuple t = new Tuple();\r\n");
 
 		for (Map.Entry<String, String> entry : structure.entrySet()) {
-			String upper = entry.getKey().substring(0, 1).toUpperCase();
-			String upper1 = entry.getValue().substring(0, 1).toUpperCase();
+			String upper = entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1);
+			String upper1 = entry.getValue().substring(0, 1).toUpperCase() + entry.getValue().substring(1);
 			firstScan.append("\tt.set" + upper + "(rs.get" + upper1 + "(\"" + entry.getKey() + "\"));\r\n");
 		}
 
@@ -214,8 +213,8 @@ public class Output {
 			}
 		}
 
-		firstScan.append("\tfor (int i = 0; i < mfs.size() && !flag; i++)");
-		firstScan.append("if (");
+		firstScan.append("\tfor (int i = 0; i < mfs.size() && !flag; i++){\r\n");
+		firstScan.append("\tif (");
 		List<String> tupleV = variables.getV();
 
 		for (int j = 0; j < tupleV.size(); j++) {
@@ -227,14 +226,14 @@ public class Output {
 			}
 		}
 
-		firstScan.append("!flag {\r\n");
+		firstScan.append("!flag) {\r\n");
 		firstScan.append("\t\tflag = true;\r\n");
 		firstScan.append("\t}\r\n");
 		firstScan.append("\t}\r\n");
 		firstScan.append("\t");
 
 		firstScan.append("\tif (!flag){\r\n");
-		firstScan.append("\tMFStruture mfstructue = new MFStruture();\r\n");
+		firstScan.append("\tMFStructure mfstructue = new MFStructure();\r\n");
 		for (int j = 0; j < tupleV.size(); j++) {
 			String attr = tupleV.get(j).substring(0, 1).toUpperCase() + tupleV.get(j).substring(1);
 			firstScan.append("\tmfstructue.set" + attr + "(t.get" + attr + "());\r\n");
@@ -330,7 +329,7 @@ public class Output {
 			}
 			result.append("\tfor(int i = 0;i < mfs.size(); i ++){ \r\n");
 			result.append("\t \r\n");
-			result.append("\tMFStruture mf = mfs.get(i); \r\n");
+			result.append("\tMFStructure mf = mfs.get(i); \r\n");
 
 			result.append("\tif (");
 
@@ -537,7 +536,11 @@ public class Output {
 
 				}
 			}
+			result.append("\t}\r\n");
+			result.append("\t}\r\n");
+			result.append("\t}\r\n");
 		}
+		content.append(result);
 	}
 
 	public void printHaving(Connect conn) {
@@ -545,7 +548,7 @@ public class Output {
 		List<String> havings = variables.getG();
 		if (havings.size() != 0) {
 			havingClause.append("for(int i = 0;i < mfs.size(); i ++){ \r\n");
-			havingClause.append("\tMFStruture mf = mfs.get(i);\r\n");
+			havingClause.append("\tMFStructure mf = mfs.get(i);\r\n");
 			havingClause.append("if(!(");
 			for (int i = 0; i < havings.size(); i++) {
 				String left = "";
@@ -719,7 +722,7 @@ public class Output {
 		}
 		result.append("\tSystem.out.println(\"\");\r\n");
 		result.append("\tfor (int i = 0; i < mfs.size(); i++){\r\n");
-		result.append("\tMFStruture mf = mfs.get(i);\r\n");
+		result.append("\tMFStructure mf = mfs.get(i);\r\n");
 
 		result.append("\r\n");
 
@@ -832,7 +835,7 @@ public class Output {
 		printPackage();
 		printImport();
 		printEntity();
-		printMFStruture(conn);
+		printMFStructure(conn);
 		printClass(conn);
 		return content.toString();
 	}
