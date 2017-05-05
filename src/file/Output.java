@@ -330,9 +330,7 @@ public class Output {
 			result.append("\tfor(int i = 0;i < mfs.size(); i ++){ \r\n");
 			result.append("\t \r\n");
 			result.append("\tMFStructure mf = mfs.get(i); \r\n");
-
 			result.append("\tif (");
-
 			for (int j = 0; j < sigma.size(); j++) {
 				String sg = sigma.get(j);
 				String type = "";
@@ -391,8 +389,6 @@ public class Output {
 
 				} else {
 					fakeRight = "mf" + right;
-					// if the right part contains avg, we need split the avg to
-					// count and sum, and re-calculate it at last
 					if (fakeRight.contains("avg_")) {
 						fakeRight = fakeRight.replace("mf", "Mf");
 						String mfcount = fakeRight.replace("avg_", "count_");
@@ -404,7 +400,6 @@ public class Output {
 						} else {
 							result.append("mfs.get(i).get" + fakeRight + "()))");
 						}
-
 					} else {
 						if ((right.contains("+") || right.contains("-") || right.contains("*"))
 								|| right.contains("/")) {
@@ -572,7 +567,6 @@ public class Output {
 					sum = "Mf" + sum;
 					count = "Mf" + count;
 					havingClause.append("(mf.get" + sum + "() / mf.get" + count + "())");
-
 				} else {
 					String fakeLeft = "mf" + left;
 					if (mfvariables.contains(fakeLeft)) {
