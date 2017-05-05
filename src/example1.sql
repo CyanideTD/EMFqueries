@@ -22,7 +22,7 @@ where  state='NJ'
 group by cust
 ;
 
-select view1.cust, view1.avg_1_quant as "1_avg_quant", view2.avg_2_quant as "2_avg_quant", view2.avg_2_quant as "3_avg_quant" 
+select view1.cust, view1.avg_1_quant as "1_avg_quant", view2.avg_2_quant as "2_avg_quant", view3.avg_3_quant as "3_avg_quant" 
 from view1, view2, view3
 where view1.cust=view2.cust and view2.cust=view3.cust
       and view1.avg_1_quant > view2.avg_2_quant and view1.avg_1_quant > view3.avg_3_quant

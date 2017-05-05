@@ -285,11 +285,11 @@ public class Output {
 					String mfsum = fakeMfvariable.replace("avg_", "sum_");
 
 					firstScan.append("\tmfstructure.set" + mfsum + "(0);\r\n");
-					firstScan.append("\tmfstructure.set" + mfcount + "0.00000001);\r\n");
+					firstScan.append("\tmfstructure.set" + mfcount + "0);\r\n");
 				} else {
 					if (mfvariable.contains("count_")) {
 						String fakeMfvariable = mfvariable.replace("mf", "Mf");
-						firstScan.append("\tmfstructure.set" + fakeMfvariable + "(0.00000001);\r\n");
+						firstScan.append("\tmfstructure.set" + fakeMfvariable + "(0);\r\n");
 					} else {
 						String fakeMfvariable = mfvariable.replace("mf", "Mf");
 						firstScan.append("\tmfstructure.set" + fakeMfvariable + "(0);\r\n");
