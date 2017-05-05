@@ -120,6 +120,9 @@ public class FileFunction {
 		if (read != null) {
 			String[] have = read.split("and");
 			for (int i = 0; i < have.length; i++) {
+				if (have[i].isEmpty()) {
+					continue;
+				}
 				having.add(have[i].trim());
 			}
 			read = buffer.readLine();

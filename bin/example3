@@ -10,4 +10,5 @@ cust, month
 1_cust=cust and 1_month < month
 2_cust=cust and 2_month > month
 #HAVING CONDITION(G):
-#WHERE CONDITION:
+
+

@@ -10,4 +10,3 @@ prod, month
 1_prod=prod and 1_month=month
 2_prod=prod
 #HAVING CONDITION(G):
-#WHERE CONDITION:

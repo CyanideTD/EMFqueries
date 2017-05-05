@@ -11,4 +11,4 @@ prod, month
 2_prod = prod and 2_month = month + 1
 3_prod = prod and 3_month = month and 3_quant > 1_avg_quant and 3_quant < 2_avg_quant
 #HAVING CONDITION(G):
-#WHERE CONDITION:
+

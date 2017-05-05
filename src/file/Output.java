@@ -233,10 +233,10 @@ public class Output {
 		firstScan.append("\t");
 
 		firstScan.append("\tif (!flag){\r\n");
-		firstScan.append("\tMFStructure mfstructue = new MFStructure();\r\n");
+		firstScan.append("\tMFStructure mfstructure = new MFStructure();\r\n");
 		for (int j = 0; j < tupleV.size(); j++) {
 			String attr = tupleV.get(j).substring(0, 1).toUpperCase() + tupleV.get(j).substring(1);
-			firstScan.append("\tmfstructue.set" + attr + "(t.get" + attr + "());\r\n");
+			firstScan.append("\tmfstructure.set" + attr + "(t.get" + attr + "());\r\n");
 		}
 
 		for (int i = 0; i < mfvariables.size(); i++) {
@@ -263,12 +263,12 @@ public class Output {
 					} else if (mfvariable.contains("_count_")) {
 						firstScan.append("\tmfstructure.set" + var + "(mfstructure.get" + var + "()+1);\r\n");
 					} else if (mfvariable.contains("_max_")) {
-						firstScan.append("\tif(mfstructue.get" + var + "() <  t.get" + Uattr + "()){\r\n");
+						firstScan.append("\tif(mfstructure.get" + var + "() <  t.get" + Uattr + "()){\r\n");
 						firstScan.append("\tmfstructure.set" + var + "( t.get" + Uattr + "());\r\n");
 						firstScan.append("}\r\n");
 
 					} else if (mfvariable.contains("_min_")) {
-						firstScan.append("\tif(mfstructue.get" + var + "() > t.get" + Uattr + "()){\r\n");
+						firstScan.append("\tif(mfstructure.get" + var + "() > t.get" + Uattr + "()){\r\n");
 						firstScan.append("\tmfstructure.set" + var + "( t.get" + Uattr + "());\r\n");
 						firstScan.append("}\r\n");
 					}
@@ -276,7 +276,7 @@ public class Output {
 			} else if (conn.getStructure().containsKey(mfvariable)) {
 				if (!tupleV.contains(mfvariable)) {
 					String upperCaseString = mfvariable.substring(0, 1).toUpperCase() + mfvariable.substring(1);
-					firstScan.append("\tmfstructue.set" + upperCaseString + "(t.get" + upperCaseString + "());\r\n");
+					firstScan.append("\tmfstructure.set" + upperCaseString + "(t.get" + upperCaseString + "());\r\n");
 				}
 			} else if (mfvariables.contains(mfvariable) && !(mfvariable.contains("0_"))) {
 				if (mfvariable.contains("avg_")) {
@@ -284,20 +284,20 @@ public class Output {
 					String mfcount = fakeMfvariable.replace("avg_", "count_");
 					String mfsum = fakeMfvariable.replace("avg_", "sum_");
 
-					firstScan.append("\tmfstructue.set" + mfsum + "(0);\r\n");
-					firstScan.append("\tmfstructue.set" + mfcount + "0.00000001);\r\n");
+					firstScan.append("\tmfstructure.set" + mfsum + "(0);\r\n");
+					firstScan.append("\tmfstructure.set" + mfcount + "0.00000001);\r\n");
 				} else {
 					if (mfvariable.contains("count_")) {
 						String fakeMfvariable = mfvariable.replace("mf", "Mf");
-						firstScan.append("\tmfstructue.set" + fakeMfvariable + "(0.00000001);\r\n");
+						firstScan.append("\tmfstructure.set" + fakeMfvariable + "(0.00000001);\r\n");
 					} else {
 						String fakeMfvariable = mfvariable.replace("mf", "Mf");
-						firstScan.append("\tmfstructue.set" + fakeMfvariable + "(0);\r\n");
+						firstScan.append("\tmfstructure.set" + fakeMfvariable + "(0);\r\n");
 					}
 				}
 			}
 		}
-		firstScan.append("\tmfs.add(mfstructue);\r\n");
+		firstScan.append("\tmfs.add(mfstructure);\r\n");
 
 		firstScan.append("\t}\r\n");
 
