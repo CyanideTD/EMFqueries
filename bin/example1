@@ -12,4 +12,3 @@ cust
 3_cust=cust and 3_state='NJ'
 #HAVING CONDITION(G):
 1_avg_quant > 2_avg_quant and 1_avg_quant > 3_avg_quant
-#WHERE CONDITION:
